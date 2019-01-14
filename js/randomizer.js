@@ -119,13 +119,14 @@ function verification(buffer) {
 }
 
 //go through randomize functions
-function doRandomize(buffer) {
-    let rom = new Uint8Array(buffer);
+async function doRandomize(romBuffer) {
+    let rom = new Uint8Array(romBuffer);
     //go through settings
     
     //testing
-    let dxIps = getIPS('patches/SML2DXv181.ips');
-    patchRom(buffer, dxIps);
+    let dxIPSResponse = await fetch('patches/SML2DXv181.ips');
+    let dxBuffer = await dxIPSResponse.arrayBuffer();
+    patchRom(romBuffer, dxBuffer);
     
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
