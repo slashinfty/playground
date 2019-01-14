@@ -62,5 +62,6 @@ function getIPS (filename) {
     xhr.open('GET', filename);
     xhr.responseType = 'arraybuffer'
     xhr.onload = () => buffer = xhr.response;
+    xhr.send();
     return buffer;
 }
