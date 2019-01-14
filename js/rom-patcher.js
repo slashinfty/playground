@@ -25,7 +25,7 @@ function patchRom (romBuffer, patchBuffer) {
     
     records.forEach(record => {
         if (record.type === RECORD_RLE) {
-            for (let i = 0; i < record.length; i++) adjustedRom.setUint8(record.offset + j, record.byte);
+            for (let i = 0; i < record.length; i++) adjustedRom.setUint8(record.offset + i, record.byte);
         } else {
             for (let j = 0; j < record.data.length; j++) adjustedRom.setUint8(record.offset + j, record.data[j]);
         }
