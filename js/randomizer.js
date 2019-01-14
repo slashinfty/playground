@@ -124,8 +124,8 @@ function doRandomize(buffer) {
     //go through settings
     
     //testing
-    let dxIps = getIPS('patches/SML2DXv181.ips');
-    patchRom(buffer, dxIps);
+    //let dxIps = getIPS('patches/SML2DXv181.ips');
+    patchRom(buffer, 'patches/SML2DXv181.ips');
     
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);

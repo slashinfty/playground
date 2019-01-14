@@ -2,10 +2,11 @@
 //originally licensed under the MIT license by Marc Robledo
 //license available https://github.com/marcrobledo/RomPatcher.js/blob/master/LICENSE
 
-function patchRom (romBuffer, patchBuffer) {
-    let records = [];
+function patchRom (romBuffer, patchFile) {
+    let records = [], patch;
     let initialRom = new DataView(romBuffer);
-    let patch = new DataView(patchBuffer);
+    getIPS(patchFile, buffer => patch = new DataView(buffer))
+    //let patch = new DataView(patchBuffer);
     let reader = new FileReader();
     records = setRecords(patch);
     
@@ -57,11 +58,4 @@ var setRecords = patch => {
     return rec;
 }
 
-function getIPS (filename) {
-    let buffer, xhr = new XMLHttpRequest();
-    xhr.open('GET', filename);
-    xhr.responseType = 'arraybuffer'
-    xhr.onload = () => buffer = xhr.response;
-    xhr.send();
-    return buffer;
-}
+const getIPS = async (file, call) => await fetch call((file).arrayBuffer());
