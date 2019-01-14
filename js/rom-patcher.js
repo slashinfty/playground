@@ -47,10 +47,10 @@ var setRecords = patch => {
             seek += 2;
             
             if (length == RECORD_RLE) {
-                addRLERecord(rec, patch.getUint16(seek), patch.getUint8(seek + 2));
+                addRLERecord(rec, address, patch.getUint16(seek), patch.getUint8(seek + 2));
                 seek += 3;
             } else {
-                addSimpleRecord(rec, readBytes(patch, seek, length));
+                addSimpleRecord(rec, address, readBytes(patch, seek, length));
                 seek += length;
             }
         }
