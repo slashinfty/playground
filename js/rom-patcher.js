@@ -1,6 +1,8 @@
 //adapted from https://github.com/marcrobledo/RomPatcher.js/
 //originally licensed under the MIT license by Marc Robledo
 //license available https://github.com/marcrobledo/RomPatcher.js/blob/master/LICENSE
+var RECORD_RLE = 0x0000;
+var RECORD_SIMPLE = 1;
 
 function patchRom (romBuffer, patchBuffer) {
     let records = [];
@@ -44,7 +46,7 @@ var setRecords = patch => {
             let length = patch.getUint16(seek);
             seek += 2;
             
-            if (length == 0x0000) {
+            if (length == RECORD_RLE) {
                 addRLERecord(rec, patch.getUint16(seek), patch.getUint8(seek + 2));
                 seek += 3;
             } else {
@@ -54,12 +56,4 @@ var setRecords = patch => {
         }
     }
     return rec;
-}
-
-var getIPS = (file, call) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", file);
-    xhr.responseType = "arraybuffer";
-    xhr.onload = () => call(xhr.response);
-    xhr.send();
 }
