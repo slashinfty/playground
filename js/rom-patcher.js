@@ -5,8 +5,9 @@
 function patchRom (romBuffer, patchFile) {
     let records = [], patch;
     let initialRom = new DataView(romBuffer);
-    getIPS(patchFile, buffer => patch = new DataView(buffer))
-    //let patch = new DataView(patchBuffer);
+    getIPS(patchFile, buffer => function(buffer) {
+        patch = new DataView(buffer);
+    });
     let reader = new FileReader();
     records = setRecords(patch);
     
@@ -58,4 +59,10 @@ var setRecords = patch => {
     return rec;
 }
 
-const getIPS = async (file, call) => { const resp = await fetch(file); const buffer = await resp.arrayBuffer(); call(buffer); }
+var getIPS = (file, call) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", file);
+    xhr.responseType = "arraybuffer";
+    xhr.onload = () => call(xhr.response);
+    xhr.send();
+}
