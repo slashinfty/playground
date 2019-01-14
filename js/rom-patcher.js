@@ -58,4 +58,4 @@ var setRecords = patch => {
     return rec;
 }
 
-const getIPS = async (file, call) => await fetch call((file).arrayBuffer());
+const getIPS = async (file, call) => { const resp = await fetch(file); const buffer = await resp.arrayBuffer(); call(buffer); }
