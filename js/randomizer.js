@@ -126,7 +126,7 @@ async function doRandomize(romBuffer) {
     //testing    
     let dxIPS = await fetch('patches/SML2DXv181.ips');
     let dxBuffer = await dxIPS.arrayBuffer();
-    patchRom(romBuffer, dxBuffer);
+    romBuffer = patchRom(romBuffer, dxBuffer);
     
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
@@ -139,5 +139,5 @@ async function doRandomize(romBuffer) {
     showLink(link);
     let dx = rom[0x148] == 0x05 ? 'DX-' : '';
     let fileName = 'sml2r-' + dx + seed + '-' + flags;
-    saveAs(new Blob([buffer], {type: "octet/stream"}), fileName + ".gb");
+    saveAs(new Blob([romBuffer], {type: "octet/stream"}), fileName + ".gb");
 }

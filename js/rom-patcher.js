@@ -19,7 +19,9 @@ function patchRom (romBuffer, patchBuffer) {
         }
     });
     
-    let adjustedRom = new DataView(romBuffer, 0, newFileSize);
+    let newRom = new ArrayBuffer(newFileSize);
+    let adjustedRom = new DataView(newRom);
+    for (let i = 0; i < initialRom.byteLength; i++) adjustedRom.setUint8(i, initialRom.getUint8(i));
     
     records.forEach(record => {
         if (record.type === RECORD_RLE) {
@@ -28,6 +30,8 @@ function patchRom (romBuffer, patchBuffer) {
             for (let j = 0; j < record.data.length; j++) adjustedRom.setUint8(record.offset + j, record.data[j]);
         }
     });
+    
+    return newRom;
 }
 
 var setRecords = patch => {
