@@ -59,8 +59,8 @@ var setRecords = patch => {
 
 function getIPS (filename) {
     let buffer, xhr = new XMLHttpRequest();
-    xhr.open('GET', filename, false);
-    xhr.send(null);
-    xhr.onload = () => { xhr.responseType = 'arraybuffer'; buffer = xhr.response; }
+    xhr.open('GET', filename);
+    xhr.responseType = 'arraybuffer'
+    xhr.onload = () => buffer = xhr.response;
     return buffer;
 }
