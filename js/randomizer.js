@@ -127,10 +127,11 @@ async function doRandomize(romBuffer) {
     let dxIPS = await fetch('patches/SML2DXv181.ips');
     let dxBuffer = await dxIPS.arrayBuffer();
     romBuffer = patchRom(romBuffer, dxBuffer);
+    rom = new Uint8Array(romBuffer);
     
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
-    if (doBosses) randomizeBoss;es(rom);
+    if (doBosses) randomizeBosses(rom);
     //credits & file select (make same?)    
     checksum(rom);
     let seed = document.getElementById('seedNumber').value;
