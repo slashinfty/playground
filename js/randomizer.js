@@ -124,9 +124,9 @@ async function doRandomize(romBuffer) {
     //go through settings
     
     //testing    
-    //let dxIPSResponse = await fetch('patches/SML2DXv181.ips');
-    //let dxBuffer = await dxIPSResponse.arrayBuffer();
-    patchRom(romBuffer, await fetch('patches/SML2DXv181.ips').arrayBuffer());
+    let dxIPS = await fetch('patches/SML2DXv181.ips');
+    let dxBuffer = await dxIPS.arrayBuffer();
+    patchRom(romBuffer, dxBuffer);
     
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
