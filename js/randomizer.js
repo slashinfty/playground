@@ -124,7 +124,7 @@ async function doRandomize(romBuffer) {
     //go through settings
     
     //testing    
-    let dxIPS = await fetch('patches/SML2DXv181.ips');
+    let dxIPS = await fetch('patches/test_patch.ips');
     let dxBuffer = await dxIPS.arrayBuffer();
     romBuffer = patchRom(romBuffer, dxBuffer);
     rom = new Uint8Array(romBuffer);
