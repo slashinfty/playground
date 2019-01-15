@@ -124,7 +124,7 @@ async function doRandomize(romBuffer) {
     //go through settings
     
     //testing    
-    let dxIPS = await fetch('patches/test_patch.ips');
+    let dxIPS = await fetch('patches/SML2DXv181.ips');
     let dxBuffer = await dxIPS.arrayBuffer();
     romBuffer = patchRom(romBuffer, dxBuffer);
     rom = new Uint8Array(romBuffer);
@@ -135,7 +135,7 @@ async function doRandomize(romBuffer) {
     //credits & file select (make same?)    
     checksum(rom);
     let seed = document.getElementById('seedNumber').value;
-    let flags = document.getElementById('flagSet').value;
+    let flags = document.getElementById('flagSet').value === '' ? 'vanilla' : document.getElementById('flagSet').value;
     let link = 'http://sml2r.download/?s=' + seed + '&f=' + flags;
     showLink(link);
     let dx = rom[0x148] == 0x05 ? 'DX-' : '';
