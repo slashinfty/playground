@@ -140,5 +140,6 @@ async function doRandomize(romBuffer) {
     showLink(link);
     let dx = rom[0x148] == 0x05 ? 'DX-' : '';
     let fileName = 'sml2r-' + dx + seed + '-' + flags;
-    saveAs(new Blob([romBuffer], {type: "octet/stream"}), fileName + ".gb");
+    let ext = rom[0x148] == 0x05 ? ".gbc" : ".gb";
+    saveAs(new Blob([romBuffer], {type: "octet/stream"}), fileName + ext);
 }

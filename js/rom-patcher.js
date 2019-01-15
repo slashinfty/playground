@@ -39,7 +39,7 @@ var setRecords = patch => {
     
     let addSimpleRecord = (o, d) => ({offset:o, type:RECORD_SIMPLE, data:d});
     let addRLERecord = (o, l, b) => ({offset:o, type:RECORD_RLE, length:l, byte:b});
-    let readBytes = (p, a, b) => { for (let c = new Array(b), d = 0; d < b; d++) c[d] = p.getUint8(a + d); return c }
+    let readBytes = (p, a, b) => { let c = new Array(b); for (let d = 0; d < b; d++) c[d] = p.getUint8(a + d); return c; }
     
     while (seek < patch.byteLength) {
         let address = (patch.getUint8(seek + 0) << 16) + (patch.getUint8(seek + 1) << 8) + (patch.getUint8(seek + 2));
