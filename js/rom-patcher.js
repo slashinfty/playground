@@ -37,8 +37,8 @@ function patchRom (romBuffer, patchBuffer) {
 var setRecords = patch => {
     let EoF = false, seek = 5, rec = [];
     
-    let addSimpleRecord = (r, o, d) => r.push({offset:o, type:RECORD_SIMPLE, data:d});
-    let addRLERecord = (r, o, l, b) => r.push({offset:o, type:RECORD_RLE, length:l, byte:b});
+    let addSimpleRecord = (o, d) => ({offset:o, type:RECORD_SIMPLE, data:d});
+    let addRLERecord = (o, l, b) => ({offset:o, type:RECORD_RLE, length:l, byte:b});
     let readBytes = (p, a, b) => { for (let c = new Array(b), d = 0; d < b; d++) c[d] = p.getUint8(a + d); return c }
     
     while (seek < patch.byteLength) {
@@ -51,10 +51,10 @@ var setRecords = patch => {
             seek += 2;
             
             if (length == RECORD_RLE) {
-                addRLERecord(rec, address, patch.getUint16(seek), patch.getUint8(seek + 2));
+                rec.push(addRLERecord(address, patch.getUint16(seek), patch.getUint8(seek + 2)));
                 seek += 3;
             } else {
-                addSimpleRecord(rec, address, readBytes(patch, seek, length));
+                rec.push(addSimpleRecord(address, readBytes(patch, seek, length)));
                 seek += length;
             }
         }
