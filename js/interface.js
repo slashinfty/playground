@@ -46,7 +46,7 @@ $(document).ready(function() {
         if (seed.length === 8 && ("00000000" + parseInt(seed, 16).toString(16).toUpperCase()).substr(-8) === seed) {
             document.getElementById('seedNumber').value = seed;
         }
-        let flags = cleanFlags(getFlags);
+        let flags = cleanFlags(getFlags.replace(' ', '+'));
         document.getElementById('flagSet').value = flags;
         setFlags(flags);
     }
