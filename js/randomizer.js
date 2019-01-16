@@ -133,7 +133,7 @@ async function doRandomize(romBuffer) {
     if (doAllDuals || doRandomDuals) swapExits(rom);
     if (doBosses) randomizeBosses(rom);
     //credits & file select (make same?)    
-    checksum(rom);
+    //checksum(rom);
     let seed = document.getElementById('seedNumber').value;
     let flags = document.getElementById('flagSet').value === '' ? 'vanilla' : document.getElementById('flagSet').value;
     let link = 'http://sml2r.download/?s=' + seed + '&f=' + flags;
