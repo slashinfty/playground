@@ -86,13 +86,13 @@ function setFlags(flags) {
     let flagSet = ['l', 'b', 'D', 'd', 'c', 'e', 'u', 'p', 'B', 'g', 'i', 'x', 'X', 's', 'f', 'F', 'm', 'M', 'h', 'o'], patchSet = ['dx'];
     let flagArray = flags.split('+');
     flagSet.forEach(letter => { 
-        if (flags[0].includes(letter)) {
+        if (flagArray[0].includes(letter)) {
             if (!$('#' + letter).is(':checked')) $('#text-' + letter).toggleClass('hide');
             $('#' + letter).prop('checked', true);
         }
     });
     patchSet.forEach(letter => {
-        if (flags[1].includes(letter)) {
+        if (flagArray[1].includes(letter)) {
             if (!$('#' + letter).is(':checked')) $('#text-' + letter).toggleClass('hide');
             $('#' + letter).prop('checked', true);
         }
