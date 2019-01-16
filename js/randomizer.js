@@ -132,6 +132,7 @@ async function doRandomize(romBuffer) {
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
     if (doBosses) randomizeBosses(rom);
+    if (doEnemies) randomizeEnemies(rom);
     //credits & file select (make same?)    
     //checksum(rom);
     let seed = document.getElementById('seedNumber').value;
