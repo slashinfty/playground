@@ -69,13 +69,13 @@ function checksum(rom) {
     for (let i = 0x00; i < 0x14E; i++) {
         csum += rom[i];
     }
-    for (let j = 0x150, e = rom[0x148] == 0x05 ? 0xFFFFF : 0x7FFFF; i <= e; i++) {
-        csum += rom[i];
+    for (let j = 0x150, e = rom[0x148] == 0x05 ? 0xFFFFF : 0x7FFFF; j <= e; j++) {
+        csum += rom[j];
     }
     rom[0x14E] = (csum >> 8) & 0xFF;
     rom[0x14F] = csum & 0xFF;
-    for (let k = 0x134; i <= 0x14C; i++) {
-        comp += rom[i];
+    for (let k = 0x134; k <= 0x14C; k++) {
+        comp += rom[k];
     }
     comp += 25;
     rom[0x14D] = 0 - (comp & 0xFF);
