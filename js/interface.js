@@ -71,7 +71,7 @@ $('#applyFlags').click(function() {
 //reduces flags to minimal length
 var cleanFlags = flags => {
     //strip out extraneous characters
-    flags = flags.replace(/[^lbDdceupBgixXsfFmMho]/g, '');
+    flags = flags.replace(/[^lbDdceupBgixXsfFmMho+]/g, '');
     //strip out duplicate characters
     flags = flags.split('').filter((x, n, s) => s.indexOf(x) == n).join('');
     //disallow and strip out one-of settings
