@@ -69,7 +69,7 @@ function checksum(rom) {
     for (let i = 0x00; i < 0x14E; i++) {
         csum += rom[i];
     }
-    for (let j = 0x150; i <= 0x7FFFF; i++) {
+    for (let j = 0x150, e = rom[0x148] == 0x05 ? 0xFFFFF : 0x7FFFF; i <= e; i++) {
         csum += rom[i];
     }
     rom[0x14E] = (csum >> 8) & 0xFF;
@@ -134,7 +134,7 @@ async function doRandomize(romBuffer) {
     if (doBosses) randomizeBosses(rom);
     if (doEnemies) randomizeEnemies(rom);
     //credits & file select (make same?)    
-    //checksum(rom);
+    checksum(rom);
     let seed = document.getElementById('seedNumber').value;
     let flags = document.getElementById('flagSet').value === '' ? 'vanilla' : document.getElementById('flagSet').value;
     let link = 'http://sml2r.download/?s=' + seed + '&f=' + flags;
