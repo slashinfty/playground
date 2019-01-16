@@ -147,6 +147,7 @@ var settings = () => {
     if ($('#M').is(':checked')) { doFastMusic = true; flags += 'M'; }
     if ($('#h').is(':checked')) { doBossHP = true; flags += 'h'; }
     if ($('#o').is(':checked')) { doOHKO = true; flags += 'o'; }
+    if ($('#dx').is(':checked')) { doPatchDX = true; flags += '+dx'; }
     return flags;
 }
 

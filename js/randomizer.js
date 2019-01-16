@@ -1,5 +1,5 @@
 //list of settings
-var doLevels, doBosses, doAllDuals, doRandomDuals, doGambling, doEnemies, doPowerups, doPlatforms, doBonus, doGravity, doIce, doRandomLuigi, doAllLuigi, doScrolling, doRandomFast, doAllFast, doMusic, doFastMusic, doBossHP, doOHKO;
+var doPatchDX, doLevels, doBosses, doAllDuals, doRandomDuals, doGambling, doEnemies, doPowerups, doPlatforms, doBonus, doGravity, doIce, doRandomLuigi, doAllLuigi, doScrolling, doRandomFast, doAllFast, doMusic, doFastMusic, doBossHP, doOHKO;
 
 //random number generator
 //Adapted from https://github.com/bit101/lcg
@@ -123,12 +123,13 @@ async function doRandomize(romBuffer) {
     let rom = new Uint8Array(romBuffer);
     //go through settings
     
-    //testing    
-    let dxIPS = await fetch('patches/SML2DXv181.ips');
-    let dxBuffer = await dxIPS.arrayBuffer();
-    romBuffer = patchRom(romBuffer, dxBuffer);
-    rom = new Uint8Array(romBuffer);
-    
+    //testing
+    if (doPatchDX) {
+        let dxIPS = await fetch('patches/SML2DXv181.ips');
+        let dxBuffer = await dxIPS.arrayBuffer();
+        romBuffer = patchRom(romBuffer, dxBuffer);
+        rom = new Uint8Array(romBuffer);
+    }    
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
     if (doBosses) randomizeBosses(rom);
@@ -139,8 +140,7 @@ async function doRandomize(romBuffer) {
     let flags = document.getElementById('flagSet').value === '' ? 'vanilla' : document.getElementById('flagSet').value;
     let link = 'http://sml2r.download/?s=' + seed + '&f=' + flags;
     showLink(link);
-    let dx = rom[0x148] == 0x05 ? 'DX-' : '';
-    let fileName = 'sml2r-' + dx + seed + '-' + flags;
+    let fileName = 'sml2r-' + seed + '-' + flags;
     let ext = rom[0x148] == 0x05 ? ".gbc" : ".gb";
     saveAs(new Blob([romBuffer], {type: "octet/stream"}), fileName + ext);
 }
