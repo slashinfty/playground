@@ -10,6 +10,7 @@ function patchRom (romBuffer, patchBuffer) {
     let patch = new DataView(patchBuffer);
     records = setRecords(patch);
     
+    //determine if new buffer needs to be larger
     let newFileSize = initialRom.byteLength;
     records.forEach(record => {
         if (record.type === RECORD_RLE) {
@@ -19,10 +20,12 @@ function patchRom (romBuffer, patchBuffer) {
         }
     });
     
+    //make new buffer and copy old buffer into it
     let newRom = new ArrayBuffer(newFileSize);
     let adjustedRom = new DataView(newRom);
     for (let i = 0; i < initialRom.byteLength; i++) adjustedRom.setUint8(i, initialRom.getUint8(i));
     
+    //set info from patch into new buffer
     records.forEach(record => {
         if (record.type === RECORD_RLE) {
             for (let i = 0; i < record.length; i++) adjustedRom.setUint8(record.offset + i, record.byte);
@@ -31,9 +34,11 @@ function patchRom (romBuffer, patchBuffer) {
         }
     });
     
+    //return new buffer
     return newRom;
 }
 
+//get info from patch
 var setRecords = patch => {
     let EoF = false, seek = 5, rec = [];
     

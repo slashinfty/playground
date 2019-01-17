@@ -122,8 +122,6 @@ function verification(buffer) {
 async function doRandomize(romBuffer) {
     let rom = new Uint8Array(romBuffer);
     //go through settings
-    
-    //testing
     if (doPatchDX) {
         let dxIPS = await fetch('patches/SML2DXv181.ips');
         let dxBuffer = await dxIPS.arrayBuffer();
@@ -134,6 +132,10 @@ async function doRandomize(romBuffer) {
     if (doAllDuals || doRandomDuals) swapExits(rom);
     if (doBosses) randomizeBosses(rom);
     if (doEnemies) randomizeEnemies(rom);
+    if (doPowerups) randomizePowerups(rom);
+    if (doPlatforms) randomizePlatforms(rom);
+    //if (doBonus) - need to patch then randomizeBonusGames(rom)
+    if (doGravity) randomizeGravity(rom);
     //credits & file select (make same?)    
     checksum(rom);
     let seed = document.getElementById('seedNumber').value;
