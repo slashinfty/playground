@@ -47,7 +47,7 @@ function randomizeEnemies(rom) {
     ];
     mostLevels.forEach(function(level) {
         sprite.randomize(rom, level.enemies, level.start, level.end);
-    });
+    }, sprite);
 
     //special cases
     for (let i = 0xE2A2; i < 0xE30B; i += 3) {
