@@ -69,7 +69,9 @@ $('#applyFlags').click(function() {
 });
 
 //reduces flags to minimal length
-var cleanFlags = flags => {
+var cleanFlags = flagSubmit => {
+    let flagArray = flagSubmit.split('+');
+    let flags = flagArray[0];
     //strip out extraneous characters
     flags = flags.replace(/[^lbDdceupBgixXsfFmMho+]/g, '');
     //strip out duplicate characters
@@ -91,12 +93,14 @@ function setFlags(flags) {
             $('#' + letter).prop('checked', true);
         }
     });
-    patchSet.forEach(letter => {
-        if (flagArray[1].includes(letter)) {
-            if (!$('#' + letter).is(':checked')) $('#text-' + letter).toggleClass('hide');
-            $('#' + letter).prop('checked', true);
-        }
-    })
+    if (flagArray.length > 1) {
+        patchSet.forEach(letter => {
+            if (flagArray[1].includes(letter)) {
+                if (!$('#' + letter).is(':checked')) $('#text-' + letter).toggleClass('hide');
+                $('#' + letter).prop('checked', true);
+            }
+        });
+    }
 }
 
 //verify ROM on upload
