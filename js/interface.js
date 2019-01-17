@@ -80,7 +80,7 @@ var cleanFlags = flagSubmit => {
     if (flags.includes('D') && flags.includes('d')) flags = flags.replace(/[dD]/g, '');
     if (flags.includes('x') && flags.includes('X')) flags = flags.replace(/[xX]/g, '');
     if (flags.includes('f') && flags.includes('F')) flags = flags.replace(/[fF]/g, '');
-    flags = flagArray.length > 1 ? flags + flagArray[1] : flags;
+    flags = flagArray.length > 1 ? flags + '+' + flagArray[1] : flags;
     return flags;
 }
 
