@@ -178,7 +178,7 @@ function randomizeEnemies(rom) {
         //skipping levels 07, 09, and 16
         if (i < 0xE30C || i > 0xE384 && i < 0xE3D4 || i > 0xE431 && i < 0xE8F7 || i > 0xE954) {
             let plants = [0x0C, 0x0D];
-            let s = sprite.extract(rom[i], rom[i + 1]));
+            let s = sprite.extract(rom[i], rom[i + 1]);
             if (rom[i] == 0xFF) i -= 2;
             else if (plants.indexOf(s) > -1) {
                 let n = sprite.insert(rom[i], rom[i + 1], plants[rng.nextInt(plants.length)]);
