@@ -46,7 +46,7 @@ function randomizeEnemies(rom) {
             "enemies": [0x01, 0x09], "start": 0xEB55, "end": 0xEBB5}
     ];
     mostLevels.forEach(function(level) {
-        sprite.randomize.call(sprite, rom, level.enemies, level.start, level.end);
+        sprite.randomize(rom, level.enemies, level.start, level.end);
     });
 
     //special cases

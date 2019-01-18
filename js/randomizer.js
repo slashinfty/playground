@@ -50,7 +50,7 @@ var sprite = {
             dest[pos + i] = src[0 + i];
         }
     },
-    randomize: (rom, poss, start, end) => {
+    randomize: function(rom, poss, start, end) {
         for (let i = start; i < end; i += 3) {
             let s = this.extract(rom[i], rom[i + 1]);
             if (rom[i] == 0xFF) i -= 2;
