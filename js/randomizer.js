@@ -136,6 +136,9 @@ async function doRandomize(romBuffer) {
     if (doPlatforms) randomizePlatforms(rom);
     //if (doBonus) - need to patch then randomizeBonusGames(rom)
     if (doGravity) randomizeGravity(rom);
+    if (doMusic) randomizeMusic(rom);
+    if (doFastMusic) randomFastMusic(rom);
+    if (doBossHP) randomizeBossHealth(rom);
     //credits & file select (make same?)    
     checksum(rom);
     let seed = document.getElementById('seedNumber').value;
