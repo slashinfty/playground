@@ -67,7 +67,7 @@ function randomizeScrolling(rom) {
             if (rom[0x3C218] == 0x0C) fast.splice(fast.indexOf(0x0C), 1);
             if (doRandomFast) {
                 if (rom[a] == 0x01 && fast.indexOf(current) > -1 && rng.nextFloat() < 0.4) rom[speedTable + current] = 0x02;
-            } else (doAllFast) {
+            } else if (doAllFast) {
                 if (rom[a] == 0x01 && fast.indexOf(current) > -1) rom[speedTable + current] = 0x02;
             }
         }
