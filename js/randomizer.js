@@ -134,15 +134,20 @@ async function doRandomize(romBuffer) {
     if (doEnemies) randomizeEnemies(rom);
     if (doPowerups) randomizePowerups(rom);
     if (doPlatforms) randomizePlatforms(rom);
-    //if (doBonus) - need to patch then randomizeBonusGames(rom)
+    //if (doBonus) randomizeBonusGames(rom); //patch
     if (doGravity) randomizeGravity(rom);
+    if (doRandomLuigi || doAllLuigi) luigiPhysics(rom);
+    if (doIce) randomIcePhysics(rom);
+    if (doScrolling) randomizeScrolling(rom);
     if (doMusic) randomizeMusic(rom);
     if (doFastMusic) randomFastMusic(rom);
     if (doBossHP) randomizeBossHealth(rom);
-    //credits & file select (make same?)    
-    checksum(rom);
+    if (doOHKO) oneHitKnockOut(rom);  
     let seed = document.getElementById('seedNumber').value;
     let flags = document.getElementById('flagSet').value === '' ? 'vanilla' : document.getElementById('flagSet').value;
+    fileSelectScreen(rom, seed, flags);
+    credits(rom);
+    checksum(rom);
     let link = 'http://sml2r.download/?s=' + seed + '&f=' + flags;
     showLink(link);
     let fileName = 'sml2r-' + seed + '-' + flags;

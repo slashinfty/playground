@@ -61,7 +61,6 @@ function swapExits(rom) {
 }
 /*
 function randomizeGambling(rom) {
-    //patch?
     let costOffsets = [0x3F45F, 0x3F428, 0x3F3F1, 0x3F3BA];
     if (doOHKO) {
         if (rom[0x148] == 0x05) //patch 999 dx
