@@ -233,7 +233,7 @@ function ohkoPowerups(rom) { //replaces hearts and stars with money bags if not 
     let free = [0x0F, 0x1E];
     let block = [0x14, 0x15];
     for (let i = 0xE077; i < 0xEBB5; i += 3) {
-        let s = sprite.extract(rom[i]], rom[i + 1]);
+        let s = sprite.extract(rom[i], rom[i + 1]);
         if (rom[i] == 0xFF) i -=2;
         else if (free.indexOf(s) > -1) {
             let m;
