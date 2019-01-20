@@ -229,6 +229,25 @@ function randomizePowerups(rom) {
     rom[0xACA7] = castle[rng.nextInt(castle.length)];
 }
 
+function ohkoPowerups(rom) { //replaces hearts and stars with money bags if not randomized
+    let free = [0x0F, 0x1E];
+    let block = [0x14, 0x15];
+    for (let i = 0xE077; i < 0xEBB5; i += 3) {
+        let s = sprite.extract(rom[i]], rom[i + 1]);
+        if (rom[i] == 0xFF) i -=2;
+        else if (free.indexOf(s) > -1) {
+            let m;
+            if (i >= 0xE0BD && i < 0xE123) m = 0x1B; //mushroom in level 01
+            else m = 0x1F;
+            let n = sprite.insert(rom[i], rom[i + 1], m);
+            sprite.copy(n, rom, i);
+        } else if (block.indexOf(s) > -1) {
+            let n = sprite.insert(rom[i], rom[i + 1], 0x19);
+            sprite.copy(n, rom, i);
+        }
+    }
+}
+
 function randomizePlatforms(rom) {
     sprite.randomize(rom, [0x28, 0x29, 0x2A, 0x2B, 0x2D, 0x2E], 0xE1EF, 0xE249); //lv04
     sprite.randomize(rom, [0x38, 0x3D], 0xE24A, 0xE2A1); //lv05
@@ -237,8 +256,7 @@ function randomizePlatforms(rom) {
     for (let i = 0xE9A3; i < 0xE9CE; i +=3) rom[i] = rom[i] == 0x5E ? rng.nextInt(0x8) + 0x57 : rng.nextInt(0x8) + 0x38;
 }
 
-//bonus game patch!
-/*
+
 function randomizeBonusGames(rom) {
     rom[0x606AF] = 0x28;
     rom[0x60925] = 0xCA;
@@ -261,4 +279,3 @@ function randomizeBonusGames(rom) {
         if (current == 0x04) { oneUpPosition.forEach(offset => rom[offset] = i); wirePowerups.splice(wirePowerups.indexOf(0x04), 1); }
     }
 }
-*/

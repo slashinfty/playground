@@ -1,6 +1,9 @@
 //list of settings
 var doPatchDX, doLevels, doBosses, doAllDuals, doRandomDuals, doGambling, doEnemies, doPowerups, doPlatforms, doBonus, doGravity, doIce, doRandomLuigi, doAllLuigi, doScrolling, doRandomFast, doAllFast, doMusic, doFastMusic, doBossHP, doOHKO;
 
+//list of patches
+var dxPatch = 'patches/SML2DXv181.ips';
+
 //random number generator
 //Adapted from https://github.com/bit101/lcg
 var rng = {
@@ -121,20 +124,27 @@ function verification(buffer) {
 //go through randomize functions
 async function doRandomize(romBuffer) {
     let rom = new Uint8Array(romBuffer);
-    //go through settings
     if (doPatchDX) {
-        let dxIPS = await fetch('patches/SML2DXv181.ips');
+        let dxIPS = await fetch(dxPatch);
         let dxBuffer = await dxIPS.arrayBuffer();
         romBuffer = patchRom(romBuffer, dxBuffer);
         rom = new Uint8Array(romBuffer);
-    }    
+    }
+    //set default patch
+    if (doGambling || doOHKO) {
+        //gambling patch
+        randomizeGambling(rom);
+    }
+    if (doBonus) {
+        //bonus patch
+        randomizeBonusGames(rom);
+    }
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
     if (doBosses) randomizeBosses(rom);
     if (doEnemies) randomizeEnemies(rom);
     if (doPowerups) randomizePowerups(rom);
     if (doPlatforms) randomizePlatforms(rom);
-    //if (doBonus) randomizeBonusGames(rom); //patch
     if (doGravity) randomizeGravity(rom);
     if (doRandomLuigi || doAllLuigi) luigiPhysics(rom);
     if (doIce) randomIcePhysics(rom);

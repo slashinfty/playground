@@ -59,16 +59,11 @@ function swapExits(rom) {
         }
     }
 }
-/*
+
 function randomizeGambling(rom) {
     let costOffsets = [0x3F45F, 0x3F428, 0x3F3F1, 0x3F3BA];
-    if (doOHKO) {
-        if (rom[0x148] == 0x05) //patch 999 dx
-        else //patch 999
-        costOffsets.forEach(offset => { rom[offset] = 0x99; rom[offset + 1] = 0x09; });
-    } else {
-        if (rom[0x148] == 0x05) //patch ? dx
-        else //patch ?
+    if (doOHKO) costOffsets.forEach(offset => { rom[offset] = 0x99; rom[offset + 1] = 0x09; });
+    else {
         let firstCost = prng.nextInt(106) + 20; //20 to 125
         let secondCost = prng.nextInt(251) + 100; //100 to 350
         if (secondCost <= firstCost) {
@@ -90,4 +85,3 @@ function randomizeGambling(rom) {
         });
     }
 }
-*/
