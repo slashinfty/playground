@@ -116,11 +116,11 @@ $('#romUpload').change(function() {
 var toggleButton = (el, bool) => {
     $(el).prop('disabled', bool);
     if (!bool) {
-        $(el).removeClass('btn-outline-secondary');
-        $(el).addClass('btn-secondary');
+        $(el).removeClass('btn-outline-light');
+        $(el).addClass('btn-light');
     } else {
-        $(el).removeClass('btn-secondary');
-        $(el).addClass('btn-outline-secondary');
+        $(el).removeClass('btn-light');
+        $(el).addClass('btn-outline-light');
     }
 }
 
