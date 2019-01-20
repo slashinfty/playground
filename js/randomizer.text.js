@@ -40,7 +40,8 @@ const ascii = [
 
 function fileSelectScreen(rom, seed, flags) {
     let writeSeed = seed;
-    let writeFlags = flags.toUpperCase(); //temp solution - need cut off before +
+    let flagArray = flags.split('+');
+    let writeFlags = flagArray[0].toUpperCase(); //temp solution
     for (let i = 0; i < writeSeed.length; i++) {
         const a2h = ascii.find(letter => letter.char === writeSeed.charAt(i));
         rom[0x30A9A + i] = a2h.byte;
