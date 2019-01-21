@@ -19,18 +19,11 @@ $('input:checkbox').change(function() {
             if ($('#x').is(':checked')) $('#text-x').toggleClass('hide');
             $('#x').prop('checked', false);
             break;
-        case 's':
-            if (!$(this).is(':checked')) {
-                if ($('#f').is(':checked')) { $('#f').prop('checked', false); $('#text-f').toggleClass('hide'); }
-                if ($('#F').is(':checked')) { $('#F').prop('checked', false); $('#text-F').toggleClass('hide'); }
-            }
         case 'f':
-            if (!$('#s').is(':checked') && $(this).is(':checked')) { $('#s').prop('checked', true); $('#text-s').toggleClass('hide'); }
             if ($('#F').is(':checked')) $('#text-F').toggleClass('hide');
             $('#F').prop('checked', false);
             break;
         case 'F':
-            if (!$('#s').is(':checked') && $(this).is(':checked')) { $('#s').prop('checked', true); $('#text-s').toggleClass('hide'); }
             if ($('#f').is(':checked')) $('#text-f').toggleClass('hide');
             $('#f').prop('checked', false);
             break;

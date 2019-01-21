@@ -149,6 +149,7 @@ async function doRandomize(romBuffer) {
     if (doRandomLuigi || doAllLuigi) luigiPhysics(rom);
     if (doIce) randomIcePhysics(rom);
     if (doScrolling) randomizeScrolling(rom);
+    if (doAllFast || doRandomFast) fastScrolling(rom);
     if (doMusic) randomizeMusic(rom);
     if (doFastMusic) randomFastMusic(rom);
     if (doBossHP) randomizeBossHealth(rom);
