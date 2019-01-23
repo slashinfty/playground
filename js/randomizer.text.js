@@ -103,18 +103,18 @@ function credits(rom) {
              line7: " AND UNTIL NEXT TIME", line8: "      GOOD BYE      "}
         ]
     }
-    let quoteIndex = prng.nextInt(randomSentences.quotes.length);
+    let quoteIndex = rng.nextInt(randomSentences.quotes.length);
 	function randomizeFacts() {
         let allFacts = randomSentences.facts.slice(0);
         for (let i = 0; i < 3; i++) {
-            let n = prng.nextInt(allFacts.length - i);
+            let n = rng.nextInt(allFacts.length - i);
             let a = allFacts.splice(n, 1);
             allFacts.push(a[0]);
         }
         return allFacts.slice(-3);
     }
     var randomFacts = randomizeFacts();
-    let songIndex = prng.nextInt(randomSentences.songs.length);
+    let songIndex = rng.nextInt(randomSentences.songs.length);
     const sentences = {
         "sentence01": {line: "  SML2 RANDO STAFF  ", offsets: [0x6974D]},
         "sentence02": {line: "      CREATOR       ", offsets: [0x69763]},
