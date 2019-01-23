@@ -125,6 +125,7 @@ function verification(buffer) {
 async function doRandomize(romBuffer) {
     let rom = new Uint8Array(romBuffer);
     if (doPatchDX) {
+        if (rom[0x14C] == 0x02) return alert('v1.2 ROMs are not compatible with the DX patch (yet)');
         let dxIPS = await fetch(dxPatch);
         let dxBuffer = await dxIPS.arrayBuffer();
         romBuffer = patchRom(romBuffer, dxBuffer);
