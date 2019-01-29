@@ -3,6 +3,8 @@ var doPatchDX, doLevels, doBosses, doAllDuals, doRandomDuals, doGambling, doEnem
 
 //list of patches
 var dxPatch = 'patches/SML2DXv181.ips';
+var base1_0patch = 'patches/basepatch_v10.ips';
+var base1_2patch = 'patches/basepatch_v12.ips';
 
 //random number generator
 //Adapted from https://github.com/bit101/lcg
@@ -124,6 +126,11 @@ function verification(buffer) {
 //go through randomize functions
 async function doRandomize(romBuffer) {
     let rom = new Uint8Array(romBuffer);
+    let basePatch = rom[0x14C] == 0x00 ? base1_0patch : base1_2patch;
+    let baseIPS = await fetch(basePatch);
+    let baseBuffer = await baseIPS.arrayBuffer();
+    romBuffer = patchRom(romBuffer, baseBuffer);
+    rom = new Uint8Array(romBUffer);
     if (doPatchDX) {
         if (rom[0x14C] == 0x02) return alert('v1.2 ROMs are not compatible with the DX patch (yet)');
         let dxIPS = await fetch(dxPatch);
@@ -131,7 +138,6 @@ async function doRandomize(romBuffer) {
         romBuffer = patchRom(romBuffer, dxBuffer);
         rom = new Uint8Array(romBuffer);
     }
-    //set default patch
     if (doGambling || doOHKO) {
         //gambling patch
         randomizeGambling(rom);

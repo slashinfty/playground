@@ -32,8 +32,8 @@ function randomizeBossHealth(rom) {
 function oneHitKnockOut(rom) {
     if (!doPowerups) ohkoPowerups(rom);
     //set lives to 0
-    let livesOffset = rom[0x14C] == 0x02 ? 0x27F5 : 0x27F2;
-    rom[livesOffset] = 0x00;
+    let livesOffsets = rom[0x14C] == 0x00 ? [0x2920, 0x30241] : [0x2923, 0x30241];
+    livesOffsets.forEach(offset => rom[offset] = 0x00);
     //disable soft reset
     for (let i = 0; i < 3; i++) rom[0x296 + i] = 0x00;
     //disable start+select to exit levels
