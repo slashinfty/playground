@@ -35,20 +35,48 @@ const ascii = [
     {char: "W", byte: 0x45},
     {char: "X", byte: 0x46},
     {char: "Y", byte: 0x47},
-    {char: "Z", byte: 0x48}
+    {char: "Z", byte: 0x48},
+    {char: "a", byte: 0x65},
+    {char: "b", byte: 0x66},
+    {char: "c", byte: 0x67},
+    {char: "d", byte: 0x68},
+    {char: "e", byte: 0x69},
+    {char: "f", byte: 0x6A},
+    {char: "g", byte: 0x6B},
+    {char: "h", byte: 0x6C},
+    {char: "i", byte: 0x6D},
+    {char: "j", byte: 0x6E},
+    {char: "k", byte: 0x6F},
+    {char: "l", byte: 0x70},
+    {char: "m", byte: 0x71},
+    {char: "n", byte: 0x72},
+    {char: "o", byte: 0x73},
+    {char: "p", byte: 0x74},
+    {char: "q", byte: 0x75},
+    {char: "r", byte: 0x76},
+    {char: "s", byte: 0x77},
+    {char: "t", byte: 0x78},
+    {char: "u", byte: 0x79},
+    {char: "v", byte: 0x7A},
+    {char: "w", byte: 0x7B},
+    {char: "x", byte: 0x7C},
+    {char: "y", byte: 0x7D},
+    {char: "z", byte: 0x7E}
 ];
 
 function fileSelectScreen(rom, seed, flags) {
     let writeSeed = seed;
     let flagArray = flags.split('+');
-    let writeFlags = flagArray[0].toUpperCase(); //temp solution
+    let writeFlags = flagArray[0];
+    let randomizerText = [0x41, 0x30, 0x3D, 0x33, 0x3E, 0x3C, 0x38, 0x48, 0x34, 0x41];
+    randomizerText.forEach((letter, index) => rom[0x30A89 + index] = letter);
     for (let i = 0; i < writeSeed.length; i++) {
         const a2h = ascii.find(letter => letter.char === writeSeed.charAt(i));
-        rom[0x30A9A + i] = a2h.byte;
+        rom[0x30AF8 + i] = a2h.byte;
     }
     for (let j = 0; j < writeFlags.length; j++) {
         const a2h = ascii.find(letter => letter.char === writeFlags.charAt(j));
-        rom[0x3ABC + j] = a2h.byte; //probably move
+        rom[0x30B1A + j] = a2h.byte; //probably move
     }
 }
 

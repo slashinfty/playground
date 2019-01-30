@@ -130,7 +130,7 @@ async function doRandomize(romBuffer) {
     let baseIPS = await fetch(basePatch);
     let baseBuffer = await baseIPS.arrayBuffer();
     romBuffer = patchRom(romBuffer, baseBuffer);
-    rom = new Uint8Array(romBUffer);
+    rom = new Uint8Array(romBuffer);
     if (doPatchDX) {
         if (rom[0x14C] == 0x02) return alert('v1.2 ROMs are not compatible with the DX patch (yet)');
         let dxIPS = await fetch(dxPatch);
