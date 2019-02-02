@@ -10,32 +10,32 @@ const ascii = [
     {char: "7", byte: 0xE0},
     {char: "8", byte: 0xE1},
     {char: "9", byte: 0xE2},
-    {char: "A", byte: 0x30},
-    {char: "B", byte: 0x31},
-    {char: "C", byte: 0x32},
-    {char: "D", byte: 0x33},
-    {char: "E", byte: 0x34},
-    {char: "F", byte: 0x35},
-    {char: "G", byte: 0x36},
-    {char: "H", byte: 0x37},
-    {char: "I", byte: 0x38},
-    {char: "J", byte: 0x39},
-    {char: "K", byte: 0x3A},
-    {char: "L", byte: 0x3B},
-    {char: "M", byte: 0x3C},
-    {char: "N", byte: 0x3D},
-    {char: "O", byte: 0x3E},
-    {char: "P", byte: 0x3F},
-    {char: "Q", byte: 0x40},
-    {char: "R", byte: 0x41},
-    {char: "S", byte: 0x42},
-    {char: "T", byte: 0x43},
-    {char: "U", byte: 0x44},
-    {char: "V", byte: 0x45},
-    {char: "W", byte: 0x45},
-    {char: "X", byte: 0x46},
-    {char: "Y", byte: 0x47},
-    {char: "Z", byte: 0x48},
+    {char: "A", byte: 0x35},
+    {char: "B", byte: 0x36},
+    {char: "C", byte: 0x37},
+    {char: "D", byte: 0x38},
+    {char: "E", byte: 0x39},
+    {char: "F", byte: 0x3A},
+    {char: "G", byte: 0x3B},
+    {char: "H", byte: 0x3C},
+    {char: "I", byte: 0x3D},
+    {char: "J", byte: 0x3E},
+    {char: "K", byte: 0x3F},
+    {char: "L", byte: 0x40},
+    {char: "M", byte: 0x41},
+    {char: "N", byte: 0x42},
+    {char: "O", byte: 0x43},
+    {char: "P", byte: 0x44},
+    {char: "Q", byte: 0x45},
+    {char: "R", byte: 0x46},
+    {char: "S", byte: 0x47},
+    {char: "T", byte: 0x48},
+    {char: "U", byte: 0x49},
+    {char: "V", byte: 0x4A},
+    {char: "W", byte: 0x4B},
+    {char: "X", byte: 0x4C},
+    {char: "Y", byte: 0x4D},
+    {char: "Z", byte: 0x4E},
     {char: "a", byte: 0x65},
     {char: "b", byte: 0x66},
     {char: "c", byte: 0x67},
@@ -71,14 +71,14 @@ function fileSelectScreen(rom, seed, flags) {
     //disable easy mode
     rom[0x30388] = 0x00;
     let randomizerText = [0x41, 0x30, 0x3D, 0x33, 0x3E, 0x3C, 0x38, 0x48, 0x34, 0x41];
-    randomizerText.forEach((letter, index) => rom[0x30A89 + index] = letter);
+    randomizerText.forEach((letter, index) => rom[0x30A99 + index] = letter);
     for (let i = 0; i < writeSeed.length; i++) {
         const a2h = ascii.find(letter => letter.char === writeSeed.charAt(i));
-        rom[0x30AB9 + i] = a2h.byte;
+        rom[0x30AD8 + i] = a2h.byte;
     }
     for (let j = 0; j < writeFlags.length; j++) {
         const a2h = ascii.find(letter => letter.char === writeFlags.charAt(j));
-        rom[0x30AD9 + j] = a2h.byte;
+        rom[0x30AF9 + j] = a2h.byte;
     }
 }
 
