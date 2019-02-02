@@ -77,7 +77,7 @@ function fileSelectScreen(rom, seed, flags) {
         rom[0x30AD8 + i] = a2h.byte;
     }
     let flagOffset = 0x30AFB;
-    if (writeFlags.length > 2) flagOffset = writeFlags % 2 === 0 ? 0x30AFB - (writeFlags.length / 2) - 1 : 0x30AFB - Math.floor(writeFlags.length / 2);
+    if (writeFlags.length > 2) flagOffset = writeFlags.length % 2 === 0 ? 0x30AFB - (writeFlags.length / 2) - 1 : 0x30AFB - Math.floor(writeFlags.length / 2);
     for (let j = 0; j < writeFlags.length; j++) {
         const a2h = ascii.find(letter => letter.char === writeFlags.charAt(j));
         rom[flagOffset + j] = a2h.byte;
