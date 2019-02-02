@@ -70,15 +70,17 @@ function fileSelectScreen(rom, seed, flags) {
     let writeFlags = flagArray[0].substr(0, 16);
     //disable easy mode
     rom[0x30388] = 0x00;
-    let randomizerText = [0x41, 0x30, 0x3D, 0x33, 0x3E, 0x3C, 0x38, 0x48, 0x34, 0x41];
+    let randomizerText = [0x46, 0x35, 0x42, 0x38, 0x43, 0x41, 0x3D, 0x4E, 0x39, 0x46];
     randomizerText.forEach((letter, index) => rom[0x30A99 + index] = letter);
     for (let i = 0; i < writeSeed.length; i++) {
         const a2h = ascii.find(letter => letter.char === writeSeed.charAt(i));
         rom[0x30AD8 + i] = a2h.byte;
     }
+    let flagOffset = 0x30AFB;
+    if (writeFlags.length > 2) flagOffset = writeFlags % 2 === 0 ? 0x30AFB - writeFlags.length / 2 - 1 : 0x30AFB - Math.floor(writeFlags.length / 2);
     for (let j = 0; j < writeFlags.length; j++) {
         const a2h = ascii.find(letter => letter.char === writeFlags.charAt(j));
-        rom[0x30AF9 + j] = a2h.byte;
+        rom[flagOffset + j] = a2h.byte;
     }
 }
 
