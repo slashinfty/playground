@@ -24,9 +24,9 @@ function randomizeBossHealth(rom) {
     let healthSetOne = [0x8FBB, 0x8FA9, 0x8E58]; //pigs
     let healthSetTwo = [0x8E52, 0x8E5B, 0x8E61]; //bird, octopus, rat
     let healthSetThree = [0x8E5E, 0x8E55, 0x8E64, 0x8E67, 0x8E6A]; //tatanga, witch, wario
-    healthSetOne.forEach(offset => rom[offset] = 0x02 * rng.nextInt(3) + 2);
-    healthSetTwo.forEach(offset => rom[offset] = 0x02 * rng.nextInt(4) + 3);
-    healthSetThree.forEach(offset => rom[offset] = 0x02 * rng.nextInt(3) + 3);
+    healthSetOne.forEach(offset => rom[offset] = 0x02 * (rng.nextInt(3) + 2));
+    healthSetTwo.forEach(offset => rom[offset] = 0x02 * (rng.nextInt(4) + 3));
+    healthSetThree.forEach(offset => rom[offset] = 0x02 * (rng.nextInt(3) + 3));
 }
 
 function oneHitKnockOut(rom) {
