@@ -64,16 +64,16 @@ function randomizeGambling(rom) {
     let costOffsets = [0x3F45F, 0x3F428, 0x3F3F1, 0x3F3BA];
     if (doOHKO) costOffsets.forEach(offset => { rom[offset] = 0x99; rom[offset + 1] = 0x09; });
     else {
-        let firstCost = prng.nextInt(106) + 20; //20 to 125
-        let secondCost = prng.nextInt(251) + 100; //100 to 350
+        let firstCost = rng.nextInt(106) + 20; //20 to 125
+        let secondCost = rng.nextInt(251) + 100; //100 to 350
         if (secondCost <= firstCost) {
             secondCost += 75;
         }
-        let thirdCost = prng.nextInt(351) + 250; //250 to 600
+        let thirdCost = rng.nextInt(351) + 250; //250 to 600
         if (thirdCost <= secondCost) {
             thirdCost += 125;
         }
-        let fourthCost = prng.nextInt(450) + 550; //550 to 999
+        let fourthCost = rng.nextInt(450) + 550; //550 to 999
         if (fourthCost <= thirdCost) {
             fourthCost += 150;
         }
