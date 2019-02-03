@@ -256,26 +256,12 @@ function randomizePlatforms(rom) {
     for (let i = 0xE9A3; i < 0xE9CE; i +=3) rom[i] = rom[i] == 0x5E ? rng.nextInt(0x8) + 0x57 : rng.nextInt(0x8) + 0x38;
 }
 
-
 function randomizeBonusGames(rom) {
-    rom[0x606AF] = 0x28;
-    rom[0x60925] = 0xCA;
     const conveyorPowerups = doOHKO ? [0x00, 0x01, 0x02] : [0x00, 0x01, 0x02, 0x03, 0x04];
     for (let i = 0x60A58; i <= 0x60A7F; i++) rom[i] = conveyorPowerups[rng.nextInt(conveyorPowerups.length)];
     for (let i = 0x60A2F; i <= 0x60A56; i++) rom[i] = conveyorPowerups[rng.nextInt(conveyorPowerups.length)];
-    const wireGame = [
-        {"byte": 0x01, "graphics": 0x2D},
-        {"byte": 0x02, "graphics": 0x2F},
-        {"byte": 0x03, "graphics": 0x2E},
-        {"byte": 0x04, "graphics": 0x30}
-    ];
-    let wirePowerups = doOHKO ? [0x01, 0x02, 0x03] : [0x01, 0x02, 0x03, 0x04];
-    const oneUpPosition = [0x60924, 0x60942, 0x606AE, 0x60717];
-    for (let i = 0x00; i < 0x04; i++) {
-        let current = wirePowerups[rng.nextInt(wirePowerups.length)];
-        rom[0x60C51 + i] = current;
-        const wireObj = wireGame.find(powerup => powerup.byte == current);
-        rom[0x3E766 + 3 * i] = wireObj.graphics;
-        if (current == 0x04) { oneUpPosition.forEach(offset => rom[offset] = i); wirePowerups.splice(wirePowerups.indexOf(0x04), 1); }
-    }
+    for (let i = 0x60A1A; i <= 0x60A2D; i++) rom[i] = conveyorPowerups[rng.nextInt(conveyorPowerups.length)];
+    
+    const wirePowerups = doOHKO ? [0x2D, 0x2E, 0x2F] : [0x2D, 0x2E, 0x2F, 0x30];
+    for (let i = 0x3E766; i <= 0x3E76F; i += 0x3) rom[i] = wirePowerups[rng.nextInt(wirePowerups.length)];
 }

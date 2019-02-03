@@ -2,9 +2,14 @@
 var doPatchDX, doLevels, doBosses, doAllDuals, doRandomDuals, doGambling, doEnemies, doPowerups, doPlatforms, doBonus, doGravity, doIce, doRandomLuigi, doAllLuigi, doScrolling, doRandomFast, doAllFast, doMusic, doFastMusic, doBossHP, doOHKO;
 
 //list of patches
-var dxPatch = 'patches/SML2DXv181.ips';
 var base1_0patch = 'patches/basepatch_v10.ips';
 var base1_2patch = 'patches/basepatch_v12.ips';
+var base1_0DXpatch = 'patches/basepatchDX_v10.ips';
+var base1_2DXpatch = 'patches/basepatchDX_v12.ips';
+var slot999patch = 'patches/slotmachines_999.ips';
+var slot999DXpatch = 'patches/slotmachines_999DX.ips';
+var slotQuestionPatch = 'patches/slotmachines_questionmarks.ips';
+var slotQuestionDXpatch = 'patches/slotmachines_questionmarksDX.ips';
 
 //random number generator
 //Adapted from https://github.com/bit101/lcg
@@ -108,13 +113,12 @@ function verification(buffer) {
         }
     });
     if (countdown == 0) {
-        if (rom[0x148] == 0x05 && rom[0xC2000] < 0x13) {
-            print = "SML2 DX ROM must be v1.8.1 or greater";
+        if (rom[0x148] == 0x05) {
+            print = "Use the Apply DX option with an original SML2 ROM";
             toggleButton('#randomizeROM', true);
         } else {
             const version = rom[0x14C] == 0x00 ? 'v1.0' : 'v1.2';
-            const dx = rom[0x148] == 0x05 ? 'DX - ' : '';
-            print = "ROM: MARIOLAND2 - " + dx + version;
+            print = "ROM: MARIOLAND2 - " + version;
             toggleButton('#randomizeROM', false);
         }
     } else {
@@ -126,26 +130,36 @@ function verification(buffer) {
 //go through randomize functions
 async function doRandomize(romBuffer) {
     let rom = new Uint8Array(romBuffer);
-    let basePatch = rom[0x14C] == 0x00 ? base1_0patch : base1_2patch;
-    let baseIPS = await fetch(basePatch);
-    let baseBuffer = await baseIPS.arrayBuffer();
-    romBuffer = patchRom(romBuffer, baseBuffer);
-    rom = new Uint8Array(romBuffer);
     if (doPatchDX) {
-        if (rom[0x14C] == 0x02) return alert('v1.2 ROMs are not compatible with the DX patch (yet)');
+        let dxPatch = rom[0x14C] == 0x00 ? base1_0DXpatch : base1_2DXpatch;
         let dxIPS = await fetch(dxPatch);
         let dxBuffer = await dxIPS.arrayBuffer();
         romBuffer = patchRom(romBuffer, dxBuffer);
         rom = new Uint8Array(romBuffer);
+    } else {
+        let basePatch = rom[0x14C] == 0x00 ? base1_0patch : base1_2patch;
+        let baseIPS = await fetch(basePatch);
+        let baseBuffer = await baseIPS.arrayBuffer();
+        romBuffer = patchRom(romBuffer, baseBuffer);
+        rom = new Uint8Array(romBuffer);
     }
     if (doGambling || doOHKO) {
-        //gambling patch
+        if (doOHKO) {
+            let ninesPatch = rom[0x148] == 0x05 ? slot999DXpatch : slot999patch;
+            let ninesIPS = await fetch(ninesPatch);
+            let ninesBuffer = await ninesIPS.arrayBuffer();
+            romBuffer = patchRom(romBuffer, ninesBuffer);
+            rom = new Uint8Array(romBuffer);
+        } else {
+            let questionPatch = rom[0x148] == 0x05 ? slotQuestionDXpatch : slotQuestionPatch;
+            let questionIPS = await fetch(questionPatch);
+            let questionBuffer = await questionIPS.arrayBuffer();
+            romBuffer = patchRom(romBuffer, questionBuffer);
+            rom = new Uint8Array(romBuffer);
+        }
         randomizeGambling(rom);
     }
-    if (doBonus) {
-        //bonus patch
-        randomizeBonusGames(rom);
-    }
+    if (doBonus) randomizeBonusGames(rom);
     if (doLevels) randomizeLevels(rom);
     if (doAllDuals || doRandomDuals) swapExits(rom);
     if (doBosses) randomizeBosses(rom);
