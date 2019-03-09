@@ -102,7 +102,7 @@ function fileSelectScreen(rom, seed, flags) {
     }
     for (let i = 0; i < line4.length; i++) {
         const a2h = ascii.find(letter => letter.char === line4.charAt(i));
-        rom[0x30B17 + i] = a2h.byte;
+        rom[0x30B16 + i] = a2h.byte;
     }
 }
 
