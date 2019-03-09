@@ -70,6 +70,7 @@ function fileSelectScreen(rom, seed, flags) {
     let writeFlags = flagArray[0].substr(0, 16);
     //disable easy mode
     rom[0x30388] = 0x00;
+    /*
     let randomizerText = [0x46, 0x35, 0x42, 0x38, 0x43, 0x41, 0x3D, 0x4E, 0x39, 0x46];
     randomizerText.forEach((letter, index) => rom[0x30A99 + index] = letter);
     for (let i = 0; i < writeSeed.length; i++) {
@@ -81,6 +82,27 @@ function fileSelectScreen(rom, seed, flags) {
     for (let j = 0; j < writeFlags.length; j++) {
         const a2h = ascii.find(letter => letter.char === writeFlags.charAt(j));
         rom[flagOffset + j] = a2h.byte;
+    }
+    */
+    let line1 = 'HANDHELD';
+    let line2 = 'HEROES';
+    let line3 = 'SUBMISSIONS OPEN';
+    let line4 = 'APRIL 1 2019';
+    for (let i = 0; i < line1.length; i++) {
+        const a2h = ascii.find(letter => letter.char === line1.charAt(i));
+        rom[0x30A9A + i] = a2h.byte;
+    }
+    for (let i = 0; i < line2.length; i++) {
+        const a2h = ascii.find(letter => letter.char === line2.charAt(i));
+        rom[0x30ABB + i] = a2h.byte;
+    }
+    for (let i = 0; i < line3.length; i++) {
+        const a2h = ascii.find(letter => letter.char === line3.charAt(i));
+        rom[0x30AF4 + i] = a2h.byte;
+    }
+    for (let i = 0; i < line4.length; i++) {
+        const a2h = ascii.find(letter => letter.char === line4.charAt(i));
+        rom[0x30B17 + i] = a2h.byte;
     }
 }
 
