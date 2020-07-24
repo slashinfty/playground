@@ -1,4 +1,6 @@
 var player;
+var pauseTime;
+var frameRate;
 
 document.addEventListener("DOMContentLoaded", () => {
   // This code loads the IFrame Player API code asynchronously
@@ -22,9 +24,25 @@ function loadVideo() {
     height: '315',
     width: '560',
     videoId: videoID,
-    enablejsapi: 1
+    events: {
+      'onStateChange': updatePauseTime
+    }
   });
   document.getElementById('loaded').style.display = 'block';
+}
+
+function updatePauseTime(event) {
+  if (event.data == YT.PlayerState.PAUSED) {
+    pauseTime = player.getCurrentTime();
+  }
+}
+
+function calibrate() {
+  let currentTime = player.getCurrentTime();
+  let previousFrame = Math.floor(pauseTime * 60);
+  let currentFrame = Math.floor(currentTime * 60);
+  frameRate = currentFrame - previousFrame === 1 ? 60 : 30;
+  document.getElementById('displayFPS').innerHTML = frameRate.toString();
 }
 
 // Everything below here is bound to change

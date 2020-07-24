@@ -23,8 +23,12 @@
       <label for="video-link">Enter the YouTube URL or video ID: </label>
       <input type="text" id="video-link" size="30" />&nbsp;<button id="load-video" onclick="loadVideo()">Load Video</button>
     </p>
+    <p>
+      To calibrate the framerate, pause the video, advance by one frame (using <code>.</code>), then press <b>calibrate framerate</b>.
+    </p>
     <div id="loaded" style="display:none;">
       <div style="text-align:center;">
+        <p><button id="calibrate" onclick="calibrate()">Calibrate Framerate</button></p>
         <p>Framerate: <span id="displayFPS"></span> - Current Frame: <span id="displayCurrentFrame"></span></p>
         <div id="player"></div>
         <p>Use <code>,</code> and <code>.</code> to move through the video frame by frame.</p>
