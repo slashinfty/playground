@@ -39,9 +39,7 @@ function updatePauseTime(event) {
 
 function calibrate() {
   let currentTime = player.getCurrentTime();
-  let previousFrame = Math.floor(pauseTime * 60);
-  let currentFrame = Math.floor(currentTime * 60);
-  frameRate = currentFrame - previousFrame === 1 ? 60 : 30;
+  frameRate = Math.round(1 / (currentTime - pauseTime));
   document.getElementById('displayFPS').innerHTML = frameRate.toString();
 }
 
